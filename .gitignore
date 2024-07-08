@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # local files
-reademe.md
+README.md
 changelog.md
