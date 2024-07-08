@@ -1,0 +1,26 @@
+[
+  {
+    "name": "train1",
+    "status": "Available",
+    "date": "24.Jan.2021",
+    "progress": 90
+  },
+  {
+    "name": "train 2",
+    "status": "NOT Available",
+    "date": "30.Dec.2021",
+    "progress": 30
+  },
+  {
+    "name": "train 2",
+    "status": "NOT Available",
+    "date": "30.Dec.2021",
+    "progress": 30
+  },
+  {
+    "name": "train 2",
+    "status": "NOT Available",
+    "date": "30.Dec.2021",
+    "progress": 30
+  }
+]
