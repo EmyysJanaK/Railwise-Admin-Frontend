@@ -1,14 +1,10 @@
-import { Button } from "@mui/material";
-
+import SampleChart from "./SampleChart";
 function App() {
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => alert("Hello World!")}
-    >
-      Click Me
-    </Button>
+    <>
+    <h1>Sample Monthly Bookings Chart for a schedule</h1>
+    <SampleChart />
+    </>
   );
 }
 
