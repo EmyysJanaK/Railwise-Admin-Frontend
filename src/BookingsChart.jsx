@@ -16,7 +16,7 @@ function BookingsChart() {
   const getChartData = async () => {
     try {
       const response = await axios.get(
-        "/api/admin/bookingsCount/all/monthly"
+        "/api/admin/bookingsCount/approved/all/monthly"
       );
       setChartData(response.data.bookingsBreakdown);
     } catch (error) {

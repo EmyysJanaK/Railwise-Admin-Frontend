@@ -16,7 +16,7 @@ function CancellationChart() {
   const getChartData = async () => {
     try {
       const response = await axios.get(
-        "/api/admin/cancelledBookingsCount/66bda4c160323d86787b6323/monthly"
+        "/api/admin/bookingsCount/cancelled/all/monthly"
       );
       setChartData(response.data.bookingsBreakdown);
     } catch (error) {
