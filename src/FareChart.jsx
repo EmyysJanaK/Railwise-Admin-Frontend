@@ -11,14 +11,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function SampleChart() {
+function FareChart() {
   const [chartData, setChartData] = useState([]);
   const getChartData = async () => {
     try {
       const response = await axios.get(
-        "/api/admin/bookingsCount/all/weekly"
+        "/api/admin/totalFare/all/monthly"
       );
-      setChartData(response.data.bookingsBreakdown);
+      setChartData(response.data.fareBreakdown);
     } catch (error) {
       console.error(error);
     }
@@ -48,8 +48,8 @@ function SampleChart() {
           <Legend />
           <Line
             type="monotone"
-            dataKey="count"
-            stroke="#8884d8"
+            dataKey="totalFare"
+            stroke="#1184d8"
             activeDot={{ r: 8 }}
           />
         </LineChart>
@@ -58,4 +58,4 @@ function SampleChart() {
   );
 }
 
-export default SampleChart;
+export default FareChart;
