@@ -16,7 +16,7 @@ const BookingTable = () => {
       try {
         const response = await axios.get(`/api/admin/bookingsdetails/${status}/${scheduleId}/?startIndex=${page * rowsPerPage}`);
         setBookingsDetails(response.data.bookingsDetails);
-        setTotalBookings(response.data.totalBookings || 0);
+        setTotalBookings(response.data.totalBookingsCount || 0);
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
