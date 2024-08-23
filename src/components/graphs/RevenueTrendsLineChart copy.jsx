@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
-import { format, parseISO } from 'date-fns';
-import groupBy from 'lodash/groupBy';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
 import axios from "axios";
 
-const CancellationRatesLineChart = ({status}) => {
+const CancellationRatesLineChart = () => {
   const [timeFrame, setTimeFrame] = useState('monthly');
   const [scheduleId, setScheduleId] = useState('all');
   const [schedules, setSchedules] = useState([]);
@@ -14,19 +12,16 @@ const CancellationRatesLineChart = ({status}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/admin/bookings/${status}/${scheduleId}`);
-        const result = response.data.approvedBookings;
-        // const cancellations = result.approvedBookings.filter(booking => booking.status === 'cancelled');
-        // const formattedData = transformData(cancellations, timeFrame);
-        const formattedData = transformData(result, timeFrame);
-        setData(formattedData);
+        const response = await axios.get(`/api/admin/totalFare/${scheduleId}/${timeFrame}`);
+        const result = response.data.fareBreakdown;
+        setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [timeFrame, scheduleId, status]);
+  }, [timeFrame, scheduleId]);
 
 
   useEffect(() => {
@@ -41,23 +36,6 @@ const CancellationRatesLineChart = ({status}) => {
     fetchSchedules();
   }, []);
 
-  const transformData = (cancellations, timeFrame) => {
-    let groupedData = [];
-
-    if (timeFrame === 'daily') {
-      groupedData = groupBy(cancellations, booking => format(parseISO(booking.date), 'yyyy-MM-dd'));
-    } else if (timeFrame === 'monthly') {
-      groupedData = groupBy(cancellations, booking => format(parseISO(booking.date), 'yyyy-MM')); 
-    } else if (timeFrame === 'yearly') {
-      groupedData = groupBy(cancellations, booking => format(parseISO(booking.date), 'yyyy'));
-    }
-
-    return Object.keys(groupedData).map(period => ({
-      period,
-      count: groupedData[period].length,
-    }));
-  };
-
   const handleTimeFrameChange = (event) => {
     setTimeFrame(event.target.value);
   };
@@ -67,7 +45,11 @@ const CancellationRatesLineChart = ({status}) => {
   };
 
   return (
+    
     <Box>
+      {/* <Typography variant="h5" gutterBottom>
+        Cancellation Rates
+      </Typography> */}
       <FormControl fullWidth sx={{ marginBottom: 2 }}>
         <InputLabel id="schedule-select-label">Schedule</InputLabel>
         <Select
@@ -76,7 +58,6 @@ const CancellationRatesLineChart = ({status}) => {
           label="Schedule"
           onChange={handleScheduleIdChange}
         >
-          {/* Render your schedule options here */}
           <MenuItem value="all">All</MenuItem>
           {schedules.map(schedule => (
             <MenuItem key={schedule._id} value={schedule._id}>{schedule.name}</MenuItem>
@@ -92,7 +73,7 @@ const CancellationRatesLineChart = ({status}) => {
           label="Timeframe"
           onChange={handleTimeFrameChange}
         >
-          <MenuItem value="daily">Daily</MenuItem>
+          <MenuItem value="weekly">Weekly</MenuItem>
           <MenuItem value="monthly">Monthly</MenuItem>
           <MenuItem value="yearly">Yearly</MenuItem>
         </Select>
@@ -104,11 +85,15 @@ const CancellationRatesLineChart = ({status}) => {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="period" />
-          <YAxis />
+          <XAxis dataKey="period" >
+            <Label value="Period" position="insideBottom" dy={10}/>
+          </XAxis>
+          <YAxis>
+            <Label value="Total Fare (RS)" angle={-90} dx={-20}/>
+          </YAxis>
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="count" stroke="#8884d8" />
+          <Line type="monotone" dataKey="totalFare" stroke="#8884d8" />
         </LineChart>
       </ResponsiveContainer>
     </Box>

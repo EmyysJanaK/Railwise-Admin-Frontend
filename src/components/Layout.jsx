@@ -1,17 +1,29 @@
-// src/components/Layout.jsx
-import React from 'react';
 import Sidebar from './Sidebar';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Toolbar } from '@mui/material';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Sidebar /> 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <main className="flex-grow">{children}</main>
-      </Box>
+    <Grid container >
+      <Grid item sx={12} >
+        <Header />
+      </Grid>
+      <Toolbar />
+      
+      <Grid item container>
+        <Grid item xs={2}>
+          <Sidebar />
+        </Grid>
+        
+        <Grid item xs={10} >
+        <Box sx={{paddingRight: 3}}>
+            <Outlet />
 
-    </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
