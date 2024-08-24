@@ -13,7 +13,7 @@ import { UserContext } from "../context/UserContext";
 
 const Sidebar = () => {
 	const navigate = useNavigate();
-	const location = useLocation(); // Get the current path
+	const location = useLocation();
 	const { logout } = useContext(UserContext);
 
 	const handleLogout = () => {

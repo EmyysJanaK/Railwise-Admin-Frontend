@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import axios from "axios";
-import LineChartModal from './LineChartModal';  // Assume the modal is correctly imported
+import LineChartModal from './LineChartModal'; 
 import useFetchData from '../../hooks/useFetchData';
 
 const CancellationRatesLineChart = () => {

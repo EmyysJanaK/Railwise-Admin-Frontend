@@ -7,17 +7,11 @@ import useFormInput from "../hooks/useFormInput";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const location = useLocation();
   const { loginUser, error } = useAuth();
-  const [prevLocation, setPrevLocation] = useState("HomePage");
   const username = useFormInput("");
   const password = useFormInput("");
 
-  useEffect(() => {
-    if (location.state && location.state.data) {
-      setPrevLocation(location.state.data);
-    }
-  }, [location]);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -60,12 +54,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <div className="text-center mt-4">
-          <span className="text-gray-600">Don't you have an account?</span>
-          <Link to="/SignUp" className="text-blue-500 ml-2">
-            Sign Up
-          </Link>
-        </div>
+   
       </div>
     </div>
   );

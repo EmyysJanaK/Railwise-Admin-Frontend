@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import axios from "axios";
 import LineChartModal from './LineChartModal';
 import useFetchData from '../../hooks/useFetchData';
 
