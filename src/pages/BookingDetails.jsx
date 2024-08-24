@@ -1,14 +1,17 @@
-import { Grid, Box } from '@mui/material';
-import BookingTable from '../components/tables/BookingTable';
+import { Grid, Box, Typography } from "@mui/material";
+import BookingTable from "../components/tables/BookingTable";
 
 const BookingDetails = () => {
-    return (
-        <Box sx={{ display: 'flex' }}>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <BookingTable />
-        </Box>
-        </Box>
-    );
-}
+	return (
+		<Grid container>
+			<Typography variant="h4" gutterBottom>
+				Booking Details
+			</Typography>
+			<Grid item xs={12}>
+				<BookingTable />
+			</Grid>
+		</Grid>
+	);
+};
 
 export default BookingDetails;
