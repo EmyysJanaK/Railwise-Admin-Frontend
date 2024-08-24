@@ -35,10 +35,10 @@ const BookingTable = () => {
 
   useEffect(() => {
     if (data) {
-      setBookingsDetails(data.bookingsDetails || []);
-      setTotalBookings(data.totalBookingsCount || 0);
+        setBookingsDetails(data.bookingsDetails || []);
+        setTotalBookings(data.totalBookingsCount || 0);
     }
-  }, [data]);
+}, [data, status, scheduleId, page, rowsPerPage]);
 
 
   const handleStatusChange = (event) => {
@@ -53,7 +53,7 @@ const BookingTable = () => {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-  };
+};
 
   if (loading || scheduleLoading) {
     return <Typography variant="h6">Loading...</Typography>;
@@ -61,6 +61,8 @@ const BookingTable = () => {
   if (error || scheduleError) {
     return <Typography variant="h6">Error fetching data</Typography>;
   }
+
+
 
   return (
     <>
@@ -113,17 +115,17 @@ const BookingTable = () => {
             </TableHead>
             <TableBody>
               {bookingsDetails.map((booking) => (
-                <TableRow key={booking._id}>
-                  <TableCell>{booking._id}</TableCell>
-                  <TableCell>{booking.userRef.email}</TableCell>
-                  <TableCell>{new Date(booking.date).toLocaleDateString()}</TableCell>
-                  <TableCell>{booking.startHalt.stationRef.name}</TableCell>
-                  <TableCell>{booking.endHalt.stationRef.name}</TableCell>
-                  <TableCell>{booking.scheduleRef.trainRef.name}</TableCell>
-                  <TableCell>{booking.totalFare}</TableCell>
-                  <TableCell>{booking.status}</TableCell>
-                  <TableCell>{booking.seats.map((seat) => seat.name).join(', ')}</TableCell>
-                </TableRow>
+              <TableRow key={booking._id}>
+                <TableCell>{booking._id || ''}</TableCell>
+                <TableCell>{booking.userRef?.email || ''}</TableCell>
+                <TableCell>{booking.date ? new Date(booking.date).toLocaleDateString() : ''}</TableCell>
+                <TableCell>{booking.startHalt?.stationRef?.name || ''}</TableCell>
+                <TableCell>{booking.endHalt?.stationRef?.name || ''}</TableCell>
+                <TableCell>{booking.scheduleRef?.trainRef?.name || ''}</TableCell>
+                <TableCell>{booking.totalFare != null ? booking.totalFare : ''}</TableCell>
+                <TableCell>{booking.status || ''}</TableCell>
+                <TableCell>{booking.seats ? booking.seats.map((seat) => seat.name).join(', ') : ''}</TableCell>
+              </TableRow>
               ))}
             </TableBody>
           </Table>
