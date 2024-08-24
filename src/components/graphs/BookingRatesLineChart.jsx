@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import axios from "axios";
 import LineChartModal from './LineChartModal';
+import useFetchData from '../../hooks/useFetchData';
 
 const CancellationRatesLineChart = ({ status }) => {
-    const [data, setData] = useState([]);
     const [timeFrame, setTimeFrame] = useState('monthly');
     const [scheduleId, setScheduleId] = useState('all');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/api/admin/bookingsCount/${status}/${scheduleId}/${timeFrame}`);
-                const result = response.data.bookingsBreakdown;
-                console.log(result);
-                setData(result);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, [timeFrame, scheduleId, status]);  // Fetch data when timeFrame, scheduleId, or status changes
+    const {data, loading, error} = useFetchData(`/api/admin/bookingsCount/${status}/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId, status]);
+    if (loading) {
+        return <Typography variant="h6">Loading...</Typography>;
+    }
+    if(error) {
+        return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
+    }
 
     return (
         <Box>
@@ -29,7 +21,7 @@ const CancellationRatesLineChart = ({ status }) => {
                 <Typography variant="h6">No data available</Typography>
             ) : (
                 <LineChartModal
-                    data={data}
+                    data={data.bookingsBreakdown}
                     XaxisLabel="Period"
                     YaxisLabel="Total Bookings"
                     title={`${status.charAt(0).toUpperCase() + status.slice(1)} Bookings`}

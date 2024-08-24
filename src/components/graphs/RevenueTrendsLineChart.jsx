@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import axios from "axios";
 import LineChartModal from './LineChartModal';
+import useFetchData from '../../hooks/useFetchData';
 
 const CancellationRatesLineChart = () => {
-    const [data, setData] = useState([]);
     const [timeFrame, setTimeFrame] = useState('monthly');
     const [scheduleId, setScheduleId] = useState('all');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/api/admin/totalFare/${scheduleId}/${timeFrame}`);
-                const result = response.data.fareBreakdown;
-                setData(result);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
 
-        fetchData();
-    }, [timeFrame, scheduleId]);  // Update data when timeFrame or scheduleId changes
+    const {data, loading, error} = useFetchData(`/api/admin/totalFare/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
+    if (loading) {
+        return <Typography variant="h6">Loading...</Typography>;
+    }
+    if(error) {
+        return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
+    }
 
     return (
         <Box>
@@ -28,13 +22,13 @@ const CancellationRatesLineChart = () => {
                 <Typography variant="h6">No data available</Typography>
             ) : (
                 <LineChartModal
-                    data={data}
+                    data={data.fareBreakdown}
                     XaxisLabel="Period"
                     YaxisLabel="Total Fare (RS)"
                     allowDecimals={true}
                     dataKeys={["totalFare"]}
-                    onTimeFrameChange={setTimeFrame}  // Pass callback to update timeFrame
-                    onScheduleIdChange={setScheduleId}  // Pass callback to update scheduleId
+                    onTimeFrameChange={setTimeFrame}  
+                    onScheduleIdChange={setScheduleId} 
                 />
             )}
         </Box>

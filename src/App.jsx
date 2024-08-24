@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -13,12 +12,14 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import { UserProvider } from './context/UserContext';
 import PrivateRoute from './components/PrivateRoute';
+import { ScheduleProvider } from './context/ScheduleContext';
 import './index.css';
 
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <UserProvider>
+      <ScheduleProvider>
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -39,6 +40,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
+        </ScheduleProvider>
       </UserProvider>
     </LocalizationProvider>
   );

@@ -2,24 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import axios from "axios";
 import LineChartModal from './LineChartModal';
+import useFetchData from '../../hooks/useFetchData';
 
 const UserRegistrationsLineChart = () => {
-    const [data, setData] = useState([]);
     const [timeFrame, setTimeFrame] = useState('monthly');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/api/admin/userRegistrations/${timeFrame}`);
-                const result = response.data.registrationBreakdown;
-                setData(result);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
+    const {data, loading, error} = useFetchData(`/api/admin/userRegistrations/${timeFrame}`, [timeFrame]);
+    if (loading) {
+        return <Typography variant="h6">Loading...</Typography>;
+    }
+    if(error) {
+        return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
 
-        fetchData();
-    }, [timeFrame]);
+    }
 
     return (
         <Box>
@@ -27,7 +22,7 @@ const UserRegistrationsLineChart = () => {
                 <Typography variant="h6">No data available</Typography>
             ) : (
                 <LineChartModal
-                    data={data}
+                    data={data.registrationBreakdown}
                     XaxisLabel="Period"
                     YaxisLabel="Total Registrations"
                     allowDecimals={false}

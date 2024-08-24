@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
 	List,
 	ListItem,
@@ -13,6 +13,7 @@ import { UserContext } from "../context/UserContext";
 
 const Sidebar = () => {
 	const navigate = useNavigate();
+	const location = useLocation(); // Get the current path
 	const { logout } = useContext(UserContext);
 
 	const handleLogout = () => {
@@ -21,7 +22,7 @@ const Sidebar = () => {
 	};
 
 	const menuItemsGraphs = [
-		"Dashboard",
+		// "Dashboard",
 		"Bookings",
 		"Revenue",
 		"User Registrations",
@@ -55,20 +56,26 @@ const Sidebar = () => {
 							/>
 						</ListItemButton>
 					</ListItem>
-					{menuItemsGraphs.map((text) => (
-						<ListItem
-							key={text}
-							disablePadding
-							sx={{ paddingLeft: 3 }}
-						>
-							<ListItemButton
-								component={Link}
-								to={`/${text.toLowerCase().replace(" ", "-")}`}
+					{menuItemsGraphs.map((text) => {
+						const to = `/${text.toLowerCase().replace(" ", "-")}`;
+						const isActive = location.pathname === to;
+						return (
+							<ListItem
+								key={text}
+								disablePadding
+								sx={{
+									paddingLeft: 3,
+									backgroundColor: isActive
+										? "#d3d3d3"
+										: "inherit",
+								}} // Darken if active
 							>
-								<ListItemText primary={text} />
-							</ListItemButton>
-						</ListItem>
-					))}
+								<ListItemButton component={Link} to={to}>
+									<ListItemText primary={text} />
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
 					<ListItem disablePadding sx={{ background: "#1976f2" }}>
 						<ListItemButton component={Link}>
 							<ListItemText
@@ -78,30 +85,46 @@ const Sidebar = () => {
 						</ListItemButton>
 					</ListItem>
 
-					{menuItemsTables.map((text) => (
-						<ListItem
-							key={text}
-							disablePadding
-							sx={{ paddingLeft: 3 }}
-						>
-							<ListItemButton
-								component={Link}
-								to={`/${text.toLowerCase().replace(" ", "-")}`}
+					{menuItemsTables.map((text) => {
+						const to = `/${text.toLowerCase().replace(" ", "-")}`;
+						const isActive = location.pathname === to;
+						return (
+							<ListItem
+								key={text}
+								disablePadding
+								sx={{
+									paddingLeft: 3,
+									backgroundColor: isActive
+										? "#d3d3d3"
+										: "inherit",
+								}}
 							>
-								<ListItemText primary={text} />
-							</ListItemButton>
-						</ListItem>
-					))}
+								<ListItemButton component={Link} to={to}>
+									<ListItemText primary={text} />
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
 				</List>
 			</Box>
 			<Box sx={{ mb: 2 }}>
 				<List>
-					<ListItem disablePadding>
+					<ListItem
+						disablePadding
+						sx={{
+							border: "1px solid #d3d3d3",
+							borderRadius: 1,
+							overflow: "hidden",
+						}}
+					>
 						<ListItemButton
 							onClick={handleLogout}
 							sx={{ color: "red" }}
 						>
-							<ListItemText primary={"Log Out"} />
+							<ListItemText
+								primary={"Log Out"}
+								sx={{ textAlign: "center" }}
+							/>
 						</ListItemButton>
 					</ListItem>
 				</List>
