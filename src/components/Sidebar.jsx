@@ -29,7 +29,8 @@ const Sidebar = () => {
 		"Class Distribution",
 	];
 	const menuItemsTables = ["Booking Details", "Schedule Details"];
-
+	
+	const menuItemsReschedule = ["Platform Change", "Time Change"];
 	return (
 		<Drawer
 			variant="permanent"
@@ -86,6 +87,35 @@ const Sidebar = () => {
 					</ListItem>
 
 					{menuItemsTables.map((text) => {
+						const to = `/${text.toLowerCase().replace(" ", "-")}`;
+						const isActive = location.pathname === to;
+						return (
+							<ListItem
+								key={text}
+								disablePadding
+								sx={{
+									paddingLeft: 3,
+									backgroundColor: isActive
+										? "#d3d3d3"
+										: "inherit",
+								}}
+							>
+								<ListItemButton component={Link} to={to}>
+									<ListItemText primary={text} />
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
+					<ListItem disablePadding sx={{ background: "#1976f2" }}>
+						<ListItemButton component={Link}>
+							<ListItemText
+								primary={"Reschedule"}
+								sx={{ color: "white" }}
+							/>
+						</ListItemButton>
+					</ListItem>
+
+					{menuItemsReschedule.map((text) => {
 						const to = `/${text.toLowerCase().replace(" ", "-")}`;
 						const isActive = location.pathname === to;
 						return (
