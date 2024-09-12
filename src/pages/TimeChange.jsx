@@ -30,6 +30,7 @@ import { set } from "date-fns";
       `/api/admin/getHalts/${scheduleId}`,
       [scheduleId]
     );
+    console.log("date: ", date)
   
     const { notifyPassengers, loading: notifyLoading } = useNotifyPassengers();
   
@@ -117,7 +118,7 @@ import { set } from "date-fns";
           <FormControl fullWidth>
             <FormControlLabel
               control={<Checkbox checked={notifyAll} onChange={(e) => setNotifyAll(e.target.checked)} />}
-              label="Notify All Passengers"
+              label="This delay will impact all subsequent halts following this one."
             />
           </FormControl>
         </Grid>
