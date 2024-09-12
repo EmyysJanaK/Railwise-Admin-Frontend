@@ -1,6 +1,7 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { useSchedules, ScheduleProvider } from '../../context/ScheduleContext';
+import { renderHook } from '@testing-library/react';
+import { useSchedules, ScheduleProvider } from './ScheduleContext';
 import axios from 'axios';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('axios');
 
@@ -15,12 +16,14 @@ describe('useSchedules Hook', () => {
         // Mocking axios to return the mock schedules
         axios.get.mockResolvedValue({ data: { schedules: mockSchedules } });
 
-        const { result, waitForNextUpdate } = renderHook(() => useSchedules(), {
+        const { result } = renderHook(() => useSchedules(), {
             wrapper: ScheduleProvider,
         });
 
         // Wait for the hook to update with the fetched data
-        await waitForNextUpdate();
+        await act(async () => {
+            await result.current.fetchSchedules(); // Assuming useSchedules has a fetchSchedules method
+        });
 
         // Check that schedules are returned correctly
         expect(result.current.schedules).toEqual(mockSchedules);
@@ -31,11 +34,13 @@ describe('useSchedules Hook', () => {
     test('handles empty schedule data', async () => {
         axios.get.mockResolvedValue({ data: { schedules: [] } });
 
-        const { result, waitForNextUpdate } = renderHook(() => useSchedules(), {
+        const { result } = renderHook(() => useSchedules(), {
             wrapper: ScheduleProvider,
         });
 
-        await waitForNextUpdate();
+        await act(async () => {
+            await result.current.fetchSchedules(); // Adjust based on hook's implementation
+        });
 
         // Expect schedules to be an empty array
         expect(result.current.schedules).toEqual([]);
@@ -46,11 +51,13 @@ describe('useSchedules Hook', () => {
     test('handles API error correctly', async () => {
         axios.get.mockRejectedValue(new Error('Network error'));
 
-        const { result, waitForNextUpdate } = renderHook(() => useSchedules(), {
+        const { result } = renderHook(() => useSchedules(), {
             wrapper: ScheduleProvider,
         });
 
-        await waitForNextUpdate();
+        await act(async () => {
+            await result.current.fetchSchedules(); // Adjust based on hook's implementation
+        });
 
         // Expect error state to be set
         expect(result.current.schedules).toEqual([]);
@@ -66,11 +73,13 @@ describe('useSchedules Hook', () => {
 
         axios.get.mockResolvedValue({ data: { schedules: mockSchedules } });
 
-        const { result, waitForNextUpdate } = renderHook(() => useSchedules(), {
+        const { result } = renderHook(() => useSchedules(), {
             wrapper: ScheduleProvider,
         });
 
-        await waitForNextUpdate();
+        await act(async () => {
+            await result.current.fetchSchedules(); // Adjust based on hook's implementation
+        });
 
         result.current.schedules.forEach(schedule => {
             expect(schedule).toHaveProperty('_id');

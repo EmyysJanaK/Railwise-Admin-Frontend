@@ -10,6 +10,8 @@ import BookingDetails from './pages/BookingDetails';
 import ScheduleDetails from './pages/ScheduleDetails';
 import Layout from './components/Layout';
 import Login from './pages/Login';
+import TimeChange from './pages/TimeChange';
+import PlatformChange from './pages/PlatformChange';
 import { UserProvider } from './context/UserContext';
 import PrivateRoute from './components/PrivateRoute';
 import { ScheduleProvider } from './context/ScheduleContext';
@@ -37,6 +39,9 @@ function App() {
               <Route path="/class-distribution" element={<ClassDistribution />} />
               <Route path="/booking-details" element={<BookingDetails />} />
               <Route path="/schedule-details" element={<ScheduleDetails />} />
+              <Route path="/platform-change" element={<PlatformChange />} />
+              <Route path="/time-change" element={<TimeChange />} />
+              
             </Route>
           </Routes>
         </Router>
