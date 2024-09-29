@@ -11,7 +11,7 @@ const useAuth = () => {
 
   const loginUser = async ({ username, password }) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/admin/login", {
+      const response = await axios.post("/api/admin/login", {
         username,
         password,
       }, { withCredentials: true });
