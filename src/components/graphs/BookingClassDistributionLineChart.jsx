@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import axios from "axios";
 import LineChartModal from './LineChartModal'; 
 import useFetchData from '../../hooks/useFetchData';
 
-const CancellationRatesLineChart = () => {
+const BookingClassDistributionLineChart = () => {
     const [timeFrame, setTimeFrame] = useState('monthly');
     const [scheduleId, setScheduleId] = useState('all');
 
     const {data, loading, error} = useFetchData(`/api/admin/bookingClassDistribution/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
-    if (loading) {
-        return <Typography variant="h6">Loading...</Typography>;
-    }
+
 
     if (error) {
         return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
@@ -19,6 +17,12 @@ const CancellationRatesLineChart = () => {
 
     return (
         <Box>
+            {loading ? (
+				<Box display="flex" justifyContent="center" alignItems="center" height={300}>
+					<CircularProgress />
+				</Box>
+			) : (
+            <>
             {data.length === 0 ? (
                 <Typography variant="h6">No data available</Typography>
             ) : (
@@ -34,8 +38,10 @@ const CancellationRatesLineChart = () => {
                     onScheduleIdChange={setScheduleId}  
                 />
             )}
+            </>
+            )}
         </Box>
     );
 };
 
-export default CancellationRatesLineChart;
+export default BookingClassDistributionLineChart;

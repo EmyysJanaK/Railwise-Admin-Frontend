@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +14,7 @@ import {
   Select,
   TablePagination,
   Typography,
+  CircularProgress
 } from '@mui/material';
 import useFetchData from '../../hooks/useFetchData';
 import { useSchedules } from '../../context/ScheduleContext';
@@ -55,9 +57,7 @@ const BookingTable = () => {
     setPage(newPage);
 };
 
-  if (loading || scheduleLoading) {
-    return <Typography variant="h6">Loading...</Typography>;
-  }
+
   if (error || scheduleError) {
     return <Typography variant="h6">Error fetching data</Typography>;
   }
@@ -96,7 +96,13 @@ const BookingTable = () => {
           <MenuItem value="cancelled">Cancelled</MenuItem>
         </Select>
       </FormControl>
-
+      <>
+      {loading||scheduleLoading ? (
+				<Box display="flex" justifyContent="center" alignItems="center" height={300}>
+					<CircularProgress />
+				</Box>
+			) : (
+      <>  
       {data && (
         <TableContainer component={Paper}>
           <Table aria-label="bookings table">
@@ -138,7 +144,12 @@ const BookingTable = () => {
             rowsPerPageOptions={[50]}
           />
         </TableContainer>
+
       )}
+      </>
+      )}
+      </>
+      
     </>
   );
 };

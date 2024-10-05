@@ -6,6 +6,7 @@ import {
 	MenuItem,
 	Select,
 	Typography,
+	CircularProgress,
 } from "@mui/material";
 import {
 	LineChart,
@@ -23,6 +24,8 @@ import { useSchedules } from "../../context/ScheduleContext";
 
 const LineChartModal = ({
 	data,
+	loading,
+	error,
 	XaxisLabel,
 	YaxisLabel,
 	title,
@@ -36,7 +39,7 @@ const LineChartModal = ({
 	const [scheduleId, setScheduleId] = useState("all");
 	const colors = ["#8884d8", "#82ca9d", "#ffc658"];
 
-    const {schedules} = useSchedules();
+    const { schedules } = useSchedules();
 
 	const handleTimeFrameChange = (event) => {
 		const newTimeFrame = event.target.value;
@@ -91,34 +94,40 @@ const LineChartModal = ({
 				</FormControl>
 			)}
 
-			<ResponsiveContainer width="100%" height={300}>
-				<LineChart
-					data={data}
-					margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="period">
-						<Label
-							value={XaxisLabel}
-							position="insideBottom"
-							dy={10}
-						/>
-					</XAxis>
-					<YAxis allowDecimals={allowDecimals}>
-						<Label value={YaxisLabel} angle={-90} dx={-20} />
-					</YAxis>
-					<Tooltip />
-					<Legend />
-					{dataKeys.map((key, index) => (
-						<Line
-							key={index}
-							type="monotone"
-							dataKey={key}
-							stroke={colors[index]}
-						/>
-					))}
-				</LineChart>
-			</ResponsiveContainer>
+			{loading ? (
+				<Box display="flex" justifyContent="center" alignItems="center" height={300}>
+					<CircularProgress />
+				</Box>
+			) : (
+				<ResponsiveContainer width="100%" height={300}>
+					<LineChart
+						data={data}
+						margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="period">
+							<Label
+								value={XaxisLabel}
+								position="insideBottom"
+								dy={10}
+							/>
+						</XAxis>
+						<YAxis allowDecimals={allowDecimals}>
+							<Label value={YaxisLabel} angle={-90} dx={-20} />
+						</YAxis>
+						<Tooltip />
+						<Legend />
+						{dataKeys.map((key, index) => (
+							<Line
+								key={index}
+								type="monotone"
+								dataKey={key}
+								stroke={colors[index]}
+							/>
+						))}
+					</LineChart>
+				</ResponsiveContainer>
+			)}
 		</Box>
 	);
 };

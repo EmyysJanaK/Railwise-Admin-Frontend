@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+	Box,
 	Table,
 	TableBody,
 	TableCell,
@@ -8,6 +9,7 @@ import {
 	TableRow,
 	Paper,
 	Typography,
+	CircularProgress
 } from "@mui/material";
 import useFetchData from "../../hooks/useFetchData";
 
@@ -18,15 +20,18 @@ const BookingTable = () => {
 		error,
 	} = useFetchData("/api/admin/schedulesDetails", []);
 
-	if (loading) {
-		return <Typography variant="h6">Loading...</Typography>;
-	}
 	if (error) {
 		return <Typography variant="h6">Error fetching data</Typography>;
 	}
 
 	return (
 		<>
+		{loading ? (
+				<Box display="flex" justifyContent="center" alignItems="center" height={300}>
+					<CircularProgress />
+				</Box>
+			) : (
+            <>
 			{data.schedulesDetails && (
 				<TableContainer component={Paper}>
 					<Table aria-label="schedules table">
@@ -69,6 +74,8 @@ const BookingTable = () => {
 					</Table>
 				</TableContainer>
 			)}
+			</>
+		)}
 		</>
 	);
 };

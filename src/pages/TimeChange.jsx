@@ -9,6 +9,8 @@ import {
     Select,
     TextField,
     Typography,
+    CircularProgress,
+    Box
   } from "@mui/material";
   import { TimePicker } from "@mui/x-date-pickers/TimePicker";
   import { useState } from "react";
@@ -52,6 +54,18 @@ import { set } from "date-fns";
             TimeChange
           </Typography>
         </Grid>
+        {haltsLoading || notifyLoading ? (
+				<Box sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100vh"
+        }}>
+					<CircularProgress />
+				</Box>
+			) : (
+         <>
   
         <Grid item xs={12}>
           <DatePicker
@@ -132,6 +146,8 @@ import { set } from "date-fns";
             {notifyLoading ? "Notifying..." : "Notify Passengers"}
           </Button>
         </Grid>
+        </>
+        )}
       </Grid>
     );
   };

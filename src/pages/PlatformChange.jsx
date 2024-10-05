@@ -7,6 +7,8 @@ import {
     Select,
     TextField,
     Typography,
+    CircularProgress,
+    Box
   } from "@mui/material";
   import { useState } from "react";
   import { useSchedules } from "../context/ScheduleContext";
@@ -45,6 +47,18 @@ import {
         <Typography variant="h4" gutterBottom>
           PlatformChange
         </Typography>
+        {haltsLoading || notifyLoading ? (
+				<Box sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100vh"
+        }}>
+					<CircularProgress />
+				</Box>
+			) : (
+            <>
         <Grid item xs={12}>
           <DatePicker
             label="Date"
@@ -107,6 +121,8 @@ import {
             {console.log(date)}
           {notifyLoading ? "Notifying..." : "Notify Passengers"}
         </Button>
+        </>
+        )}
       </Grid>
     );
   };

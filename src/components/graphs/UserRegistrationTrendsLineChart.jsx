@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import LineChartModal from './LineChartModal';
 import useFetchData from '../../hooks/useFetchData';
 
@@ -7,9 +7,7 @@ const UserRegistrationsLineChart = () => {
     const [timeFrame, setTimeFrame] = useState('monthly');
 
     const {data, loading, error} = useFetchData(`/api/admin/userRegistrations/${timeFrame}`, [timeFrame]);
-    if (loading) {
-        return <Typography variant="h6">Loading...</Typography>;
-    }
+
     if(error) {
         return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
 
@@ -17,6 +15,12 @@ const UserRegistrationsLineChart = () => {
 
     return (
         <Box>
+            {loading ? (
+				<Box display="flex" justifyContent="center" alignItems="center" height={300}>
+					<CircularProgress />
+				</Box>
+			) : (
+            <>
             {data.length === 0 ? (
                 <Typography variant="h6">No data available</Typography>
             ) : (
@@ -29,6 +33,8 @@ const UserRegistrationsLineChart = () => {
                     onTimeFrameChange={setTimeFrame}
                     showScheduleSelector={false}
                 />
+            )}
+            </>
             )}
         </Box>
     );
