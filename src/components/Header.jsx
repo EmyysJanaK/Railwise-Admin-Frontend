@@ -1,5 +1,7 @@
 import { AppBar, Toolbar, Typography,Box } from '@mui/material';
 import RefreshScheduleContextButton from '../components/RefreshScheduleContextButton';
+import { Link } from 'react-router-dom';
+
 const Header = () => {
     return (
 
@@ -7,7 +9,7 @@ const Header = () => {
         <Toolbar>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Typography variant="h5" noWrap>
-                            Railwise Admin
+                          <Link to="/">Railwise Admin</Link>
                         </Typography>
                         <RefreshScheduleContextButton />
                     </Box>
