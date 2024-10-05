@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
 
-      <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1}}>
         <Toolbar>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',}}>
                         <Typography variant="h5" noWrap>
                           <Link to="/">Railwise Admin</Link>
                         </Typography>

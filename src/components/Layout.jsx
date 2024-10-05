@@ -11,13 +11,13 @@ const Layout = () => {
       </Grid>
       <Toolbar />
       
-      <Grid item container>
+      <Grid item container >
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
         
         <Grid item xs={10} >
-        <Box sx={{paddingRight: 3}}>
+        <Box sx={{paddingRight: 3, marginTop: 3}}>
             <Outlet />
 
           </Box>
