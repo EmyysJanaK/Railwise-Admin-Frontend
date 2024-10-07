@@ -19,7 +19,7 @@ import {
 import { format } from 'date-fns';
   
   const PlatformChange = () => {
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState();
     const [scheduleId, setScheduleId] = useState("");
     const [haltId, setHaltId] = useState("");
     const [platform, setPlatform] = useState("");
