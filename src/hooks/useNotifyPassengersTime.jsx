@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const useNotifyPassengers = () => {
   const [loading, setLoading] = useState(false);
@@ -17,13 +19,13 @@ const useNotifyPassengers = () => {
       });
       if (response.status === 200) {
         setSuccess(true);
-        alert("Passengers have been notified successfully.");
+        toast.success("Passengers have been notified successfully.");
       } else {
         throw new Error("Failed to notify passengers.");
       }
     } catch (err) {
       setError(err);
-      alert("An error occurred while notifying passengers.");
+      toast.error("An error occurred while notifying passengers.");
     } finally {
       setLoading(false);
     }

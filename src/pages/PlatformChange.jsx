@@ -1,3 +1,4 @@
+import React from 'react'; 
 import {
     Button,
     FormControl,
@@ -15,6 +16,7 @@ import {
   import { DatePicker } from "@mui/x-date-pickers/DatePicker";
   import useFetchData from "../hooks/useFetchData";
   import useNotifyPassengers from "../hooks/useNotifyPassengers";
+import { format } from 'date-fns';
   
   const PlatformChange = () => {
     const [date, setDate] = useState("");
@@ -41,11 +43,17 @@ import {
       setHaltId(newHaltId);
       setHaltName(haltsData.halts.find((halt) => halt._id === newHaltId).stationRef.name);
     };
+
+    const handleSubmit = () => {
+      const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;
+    
+      notifyPassengers(haltId,haltName, platform, formattedDate)
+    };
   
     return (
       <Grid container>
         <Typography variant="h4" gutterBottom>
-          PlatformChange
+          Platform Change
         </Typography>
         {haltsLoading || notifyLoading ? (
 				<Box sx={{
@@ -115,11 +123,10 @@ import {
         </Grid>
         <Button
           variant="contained"
-          onClick={() => notifyPassengers(haltId,haltName, platform, date)}
+          onClick={() => handleSubmit()}
           disabled={notifyLoading}
         >
-            {console.log(date)}
-          {notifyLoading ? "Notifying..." : "Notify Passengers"}
+         Notify Passengers
         </Button>
         </>
         )}

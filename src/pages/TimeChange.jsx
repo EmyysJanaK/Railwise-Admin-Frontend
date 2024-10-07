@@ -1,3 +1,4 @@
+import React from 'react'; 
 import {
     Button,
     Checkbox,
@@ -19,9 +20,10 @@ import {
   import useFetchData from "../hooks/useFetchData";
   import useNotifyPassengers from "../hooks/useNotifyPassengersTime";
 import { set } from "date-fns";
+import { format } from 'date-fns';
   
   const TimeChange = () => {
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(null);
     const [scheduleId, setScheduleId] = useState("");
     const [haltId, setHaltId] = useState("");
     const [haltOrder, setHaltOrder] = useState("");
@@ -32,7 +34,6 @@ import { set } from "date-fns";
       `/api/admin/getHalts/${scheduleId}`,
       [scheduleId]
     );
-    console.log("date: ", date)
   
     const { notifyPassengers, loading: notifyLoading } = useNotifyPassengers();
   
@@ -46,12 +47,18 @@ import { set } from "date-fns";
       setHaltId(newHaltId);
       setHaltOrder(haltsData.halts.find((halt) => halt._id === newHaltId).haltOrder);
     };
-  
+    
+    const handleSubmit = () => {
+      const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;
+    
+      notifyPassengers(scheduleId, haltOrder, haltId, formattedDate, time, notifyAll);
+    };
+
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4" gutterBottom>
-            TimeChange
+            Time Change
           </Typography>
         </Grid>
         {haltsLoading || notifyLoading ? (
@@ -102,7 +109,6 @@ import { set } from "date-fns";
             <Select
               labelId="halt-select-label"
               value={haltId}
-              label="Halt"
               onChange={handleHaltIdChange}
             >
               {!haltsLoading &&
@@ -140,10 +146,10 @@ import { set } from "date-fns";
         <Grid item xs={12}>
           <Button
             variant="contained"
-            onClick={() => notifyPassengers(scheduleId, haltOrder, haltId, date, time, notifyAll)}
+            onClick={() => handleSubmit()}
             disabled={notifyLoading}
           >
-            {notifyLoading ? "Notifying..." : "Notify Passengers"}
+            Notify Passengers
           </Button>
         </Grid>
         </>

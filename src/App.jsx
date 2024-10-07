@@ -1,6 +1,10 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';  // Import toast styles
+
 import Dashboard from './components/Dashboard';
 import Bookings from './pages/Bookings';
 import Revenue from './pages/Revenue';
@@ -41,10 +45,10 @@ function App() {
               <Route path="/schedule-details" element={<ScheduleDetails />} />
               <Route path="/platform-change" element={<PlatformChange />} />
               <Route path="/time-change" element={<TimeChange />} />
-              
             </Route>
           </Routes>
         </Router>
+        <ToastContainer /> 
         </ScheduleProvider>
       </UserProvider>
     </LocalizationProvider>
