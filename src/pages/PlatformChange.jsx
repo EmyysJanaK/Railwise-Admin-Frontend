@@ -84,6 +84,7 @@ import { format } from 'date-fns';
                 label="Schedule"
                 onChange={handleScheduleIdChange}
               >
+                {console.log(schedules)}
                 {schedules.map((schedule) => (
                   <MenuItem key={schedule._id} value={schedule._id}>
                     {`${schedule.name} (${schedule.trainRef.name})`}

@@ -34,8 +34,10 @@ const BookingClassDistributionLineChart = () => {
                     allowDecimals={false}
                     dataKeys={["first", "second", "third"]}
                     showScheduleSelector={true}  
-                    onTimeFrameChange={setTimeFrame}  
-                    onScheduleIdChange={setScheduleId}  
+                    setTimeFrame={setTimeFrame}  
+                    timeFrame = {timeFrame}
+                    setScheduleId={setScheduleId} 
+                    scheduleId={scheduleId}
                 />
             )}
             </>

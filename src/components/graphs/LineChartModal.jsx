@@ -29,11 +29,11 @@ const LineChartModal = ({
 	allowDecimals,
 	dataKeys,
 	showScheduleSelector = true,
-	onTimeFrameChange,
-	onScheduleIdChange,
+	setTimeFrame,
+	timeFrame,
+	setScheduleId,
+	scheduleId
 }) => {
-	const [timeFrame, setTimeFrame] = useState("monthly");
-	const [scheduleId, setScheduleId] = useState("all");
 	const colors = ["#8884d8", "#82ca9d", "#ffc658"];
 
     const {schedules} = useSchedules();
@@ -41,13 +41,12 @@ const LineChartModal = ({
 	const handleTimeFrameChange = (event) => {
 		const newTimeFrame = event.target.value;
 		setTimeFrame(newTimeFrame);
-		onTimeFrameChange(newTimeFrame);
+		console.log(newTimeFrame);
 	};
 
 	const handleScheduleIdChange = (event) => {
 		const newScheduleId = event.target.value;
 		setScheduleId(newScheduleId);
-		onScheduleIdChange(newScheduleId);
 	};
 
 	return (

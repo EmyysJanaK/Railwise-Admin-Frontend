@@ -30,8 +30,10 @@ const RevenueTrendsLineChart = () => {
                     YaxisLabel="Total Fare (RS)"
                     allowDecimals={true}
                     dataKeys={["totalFare"]}
-                    onTimeFrameChange={setTimeFrame}  
-                    onScheduleIdChange={setScheduleId} 
+                    setTimeFrame={setTimeFrame}  
+                    timeFrame = {timeFrame}
+                    setScheduleId={setScheduleId} 
+                    scheduleId={scheduleId}
                 />
             )}
             </>

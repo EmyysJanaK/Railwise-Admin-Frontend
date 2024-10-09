@@ -30,7 +30,8 @@ const UserRegistrationsLineChart = () => {
                     YaxisLabel="Total Registrations"
                     allowDecimals={false}
                     dataKeys={["registrations"]}
-                    onTimeFrameChange={setTimeFrame}
+                    setTimeFrame={setTimeFrame}  
+                    timeFrame = {timeFrame}
                     showScheduleSelector={false}
                 />
             )}

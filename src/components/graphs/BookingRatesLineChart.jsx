@@ -31,8 +31,10 @@ const BookingRatesLineChart = ({ status }) => {
                     title={`${status.charAt(0).toUpperCase() + status.slice(1)} Bookings`}
                     allowDecimals={false}
                     dataKeys={["count"]}
-                    onTimeFrameChange={setTimeFrame}  
-                    onScheduleIdChange={setScheduleId} 
+                    setTimeFrame={setTimeFrame}  
+                    timeFrame = {timeFrame}
+                    setScheduleId={setScheduleId} 
+                    scheduleId={scheduleId}
                 />
             )}
             </>
