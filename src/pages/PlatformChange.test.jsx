@@ -18,8 +18,8 @@ vi.mock('../hooks/useNotifyPassengers');
 describe('PlatformChange Component', () => {
   const mockNotifyPassengers = vi.fn();
   const mockSchedules = [
-    { _id: '1', name: 'Schedule 1' },
-    { _id: '2', name: 'Schedule 2' },
+    { _id: '1', name: 'Schedule 1' ,trainRef : {name: 'Train 1'}},
+    { _id: '2', name: 'Schedule 2' ,trainRef : {name: 'Train 2'} },
   ];
   const mockHaltsData = {
     halts: [
@@ -116,7 +116,7 @@ describe('PlatformChange Component', () => {
 
     // Simulate selecting a schedule
     fireEvent.mouseDown(screen.getByLabelText(/Schedule/i));
-    const scheduleOption = await screen.findByText('Schedule 1');
+    const scheduleOption = await screen.findByText('Schedule 1 (Train 1)');
     fireEvent.click(scheduleOption);
 
     // Simulate selecting a halt
