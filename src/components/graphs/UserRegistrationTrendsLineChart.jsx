@@ -6,7 +6,7 @@ import useFetchData from '../../hooks/useFetchData';
 const UserRegistrationsLineChart = () => {
     const [timeFrame, setTimeFrame] = useState('monthly');
 
-    const {data, loading, error} = useFetchData(`/api/admin/userRegistrations/${timeFrame}`, [timeFrame]);
+    const {data, loading, error} = useFetchData(`${import.meta.env.VITE_BACKEND_URL}/api/admin/userRegistrations/${timeFrame}`, [timeFrame]);
 
     if(error) {
         return <Typography variant="h6">Error fetching data: {error.message}</Typography>;

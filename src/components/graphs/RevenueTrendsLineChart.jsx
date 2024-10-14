@@ -8,7 +8,7 @@ const RevenueTrendsLineChart = () => {
     const [scheduleId, setScheduleId] = useState('all');
 
 
-    const {data, loading, error} = useFetchData(`/api/admin/totalFare/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
+    const {data, loading, error} = useFetchData(`${import.meta.env.VITE_BACKEND_URL}/api/admin/totalFare/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
     if(error) {
         return <Typography variant="h6">Error fetching data: {error.message}</Typography>;
     }

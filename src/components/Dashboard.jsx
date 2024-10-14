@@ -13,11 +13,11 @@ const DashboardHome = () => {
     // Fetch summary metrics from the API
     const fetchData = async () => {
       try {
-        const revenueResponse = await axios.get('/api/admin/totalFare/all/yearly');
-        const registrationsResponse = await axios.get('/api/admin/userRegistrations/yearly');
-        const schedulesResponse = await axios.get('/api/admin/schedules');
-        const revenueOverviewResponse = await axios.get('/api/admin/totalFare/all/monthly');
-        const classDistributionResponse = await axios.get('/api/admin/bookingClassDistribution/all/yearly');
+        const revenueResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/totalFare/all/yearly`);
+        const registrationsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/userRegistrations/yearly`);
+        const schedulesResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/schedules`);
+        const revenueOverviewResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/totalFare/all/monthly`);
+        const classDistributionResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/bookingClassDistribution/all/yearly`);
 
         setMetrics({
           totalRevenue: revenueResponse.data.fareBreakdown.reduce((acc, curr) => acc + curr.totalFare, 0),

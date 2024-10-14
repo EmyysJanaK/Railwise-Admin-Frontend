@@ -18,7 +18,7 @@ const BookingTable = () => {
 		data,
 		loading,
 		error,
-	} = useFetchData("/api/admin/schedulesDetails", []);
+	} = useFetchData(`${import.meta.env.VITE_BACKEND_URL}/api/admin/schedulesDetails`, []);
 
 	if (error) {
 		return <Typography variant="h6">Error fetching data</Typography>;

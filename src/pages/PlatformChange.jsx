@@ -27,7 +27,7 @@ import { format } from 'date-fns';
   
     const { schedules } = useSchedules();
     const { data: haltsData, loading: haltsLoading } = useFetchData(
-      `/api/admin/getHalts/${scheduleId}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/admin/getHalts/${scheduleId}`,
       [scheduleId]
     );
   

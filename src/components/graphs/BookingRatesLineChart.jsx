@@ -7,7 +7,7 @@ const BookingRatesLineChart = ({ status }) => {
     const [timeFrame, setTimeFrame] = useState('monthly');
     const [scheduleId, setScheduleId] = useState('all');
 
-    const {data, loading, error} = useFetchData(`/api/admin/bookingsCount/${status}/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId, status]);
+    const {data, loading, error} = useFetchData(`${import.meta.env.VITE_BACKEND_URL}/api/admin/bookingsCount/${status}/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId, status]);
 
     if(error) {
         return <Typography variant="h6">Error fetching data: {error.message}</Typography>;

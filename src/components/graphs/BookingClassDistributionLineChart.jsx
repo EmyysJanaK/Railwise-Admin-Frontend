@@ -8,7 +8,7 @@ const BookingClassDistributionLineChart = () => {
     const [timeFrame, setTimeFrame] = useState('monthly');
     const [scheduleId, setScheduleId] = useState('all');
 
-    const {data, loading, error} = useFetchData(`/api/admin/bookingClassDistribution/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
+    const {data, loading, error} = useFetchData(`${import.meta.env.VITE_BACKEND_URL}/api/admin/bookingClassDistribution/${scheduleId}/${timeFrame}`, [timeFrame, scheduleId]);
 
 
     if (error) {

@@ -13,7 +13,7 @@ const useNotifyPassengers = () => {
     setSuccess(false);
 
     try {
-      const response = await axios.post("/api/admin/PlatformChange", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/PlatformChange`, {
         haltId,
         haltName,
         platform,

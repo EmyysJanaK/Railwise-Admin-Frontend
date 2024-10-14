@@ -28,7 +28,7 @@ const BookingTable = () => {
   const [totalBookings, setTotalBookings] = useState(0);
 
   const { data, loading, error } = useFetchData(
-    `/api/admin/bookingsdetails/${status}/${scheduleId}/?startIndex=${page * rowsPerPage}`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/admin/bookingsdetails/${status}/${scheduleId}/?startIndex=${page * rowsPerPage}`,
     [status, scheduleId, page, rowsPerPage]
   );
 

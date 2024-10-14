@@ -14,7 +14,7 @@ const useNotifyPassengers = () => {
     setSuccess(false);
 
     try {
-      const response = await axios.post("/api/admin/TimeChange", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/TimeChange`, {
         scheduleId, haltOrder, haltId, date, time, notifyAll
       });
       if (response.status === 200) {

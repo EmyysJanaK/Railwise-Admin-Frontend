@@ -12,7 +12,7 @@ export const ScheduleProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get("/api/admin/schedules");
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/schedules`);
             setSchedules(response.data.schedules);
         } catch (error) {
             setError(error);
