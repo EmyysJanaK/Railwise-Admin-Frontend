@@ -131,6 +131,6 @@ yarn test
 
 The project is maintained by:
 
-- **Sarathchandra D.M.P.M. (210577K)** - Project Scope, Need for the Project
-- **Senaratne R.R.S.N. (210592C)** - Deliverables, Overview of Existing Systems and Technology
-- **Senevirathne R.J.M. (210598B)** - Project Overview, Objectives
+- **Sarathchandra D.M.P.M. (210577K)**
+- **Senaratne R.R.S.N. (210592C)**
+- **Senevirathne R.J.M. (210598B)**
